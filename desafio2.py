@@ -7,58 +7,45 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import os
 
-# Inicializar o WebDriver usando o webdriver-manager
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
-# Acessar o site DemoQA
 driver.get("https://demoqa.com/")
 print("Acessou o site DemoQA.")
 
-# Esperar a página carregar
 time.sleep(2)
 
-# Navegar até a seção de Formulários
 forms_menu = driver.find_element(By.XPATH, "//h5[text()='Forms']")
 forms_menu.click()
 print("Navegou para a seção de Formulários.")
 
-# Esperar carregar a página de Formulários
 time.sleep(2)
 
-# Clicar em "Practice Form"
 practice_form = driver.find_element(By.XPATH, "//span[text()='Practice Form']")
 practice_form.click()
 print("Clicou em 'Practice Form'.")
 
-# Esperar carregar o formulário
 time.sleep(2)
 
-# Preencher o campo 'First Name'
 first_name = driver.find_element(By.ID, "firstName")
 first_name.send_keys("John")
 print("Preencheu o campo 'First Name'.")
 
-# Preencher o campo 'Last Name'
 last_name = driver.find_element(By.ID, "lastName")
 last_name.send_keys("Doe")
 print("Preencheu o campo 'Last Name'.")
 
-# Preencher o campo 'Email'
 email = driver.find_element(By.ID, "userEmail")
 email.send_keys("john.doe@example.com")
 print("Preencheu o campo 'Email'.")
 
-# Selecionar o gênero (Gender)
 gender = driver.find_element(By.CSS_SELECTOR, "label[for='gender-radio-1']")
 gender.click()
 print("Selecionou o gênero.")
 
-# Preencher o campo 'Mobile' (número de telefone)
 mobile = driver.find_element(By.ID, "userNumber")
 mobile.send_keys("1234567890")
 print("Preencheu o campo 'Mobile'.")
 
-# Remover o iframe que está bloqueando
 driver.execute_script("""
     var iframe = document.getElementById('google_ads_iframe_/21849154601,22343295815/Ad.Plus-Anchor_0');
     if (iframe) {
@@ -67,7 +54,6 @@ driver.execute_script("""
 """)
 print("Iframe de anúncio removido.")
 
-# Esperar explicitamente até que o campo de hobbies esteja visível e clicável
 try:
     hobbies = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, "label[for='hobbies-checkbox-1']"))
@@ -77,30 +63,24 @@ try:
 except Exception as e:
     print(f"Erro ao tentar clicar em hobbies: {e}")
 
-# Fazer upload de um arquivo .txt (arquivo simples)
 upload_element = driver.find_element(By.ID, "uploadPicture")
 upload_element.send_keys(os.path.abspath("arquivo.txt"))
 print("Fez upload do arquivo .txt.")
 
-# Preencher o campo 'Address'
 address = driver.find_element(By.ID, "currentAddress")
 address.send_keys("123 Main St, Springfield")
 print("Preencheu o campo 'Address'.")
 
-# Submeter o formulário
 submit_button = driver.find_element(By.ID, "submit")
 submit_button.click()
 print("Submeteu o formulário.")
 
-# Esperar o popup aparecer
 time.sleep(2)
 
-# Fechar o popup
 close_button = driver.find_element(By.ID, "closeLargeModal")
 close_button.click()
 print("Fechou o popup.")
 
-# Esperar alguns segundos e fechar o navegador
 time.sleep(2)
 driver.quit()
 print("Navegador fechado.")
